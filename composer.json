@@ -1,0 +1,29 @@
+{
+    "name": "dekate/model-logger",
+    "description": "Table changes logger",
+    "type": "lirary",
+    "require": {
+        "php": "^8.0.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Dekate\\ModelLogger\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dekate\\ModelLogger\\ModelLoggerServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "SusuTawar",
+            "email": "realsusutawar@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
