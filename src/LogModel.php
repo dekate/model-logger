@@ -25,7 +25,6 @@ trait LogModel
     static::updated(function ($model) {
       if (!in_array('U', config('model-logger.ignores')) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
         $oldValues = [];
-        info('asd', $model->getChanges());
         foreach ($model->getChanges() as $key => $value) {
           $oldValues[$key] = $model->getRawOriginal($key);
         }
