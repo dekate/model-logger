@@ -50,6 +50,30 @@ class MyModel extends Model
 }
 ```
 
+To disable log for specific operation in a single model.
+Add `protected $disableLog` to your model.
+Valid values are string composed of `C` (create), `U` (update), and `D` (delete).
+
+```php
+class YourModel extends Model
+{
+  use LogModel;
+
+  // disable Create log
+  protected $disableLog = "C";
+}
+```
+
+```php
+class YourModel extends Model
+{
+  use LogModel;
+
+  // disable Create Delete
+  protected $disableLog = "CD";
+}
+```
+
 ## Gotchas
 
 ### Relationship
@@ -68,7 +92,7 @@ $myModel->syncWithRelation('myRelation', []);
 ### User Id
 
 Responsible user for the changes are tracked with `auth()->id()`.
-So, we're unable to track the user it's empty.
+So, we're unable to track the user if `auth` it's empty or not being used.
 
 ### What we cannot track
 

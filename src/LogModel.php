@@ -4,11 +4,18 @@ namespace Dekate\ModelLogger;
 
 trait LogModel
 {
+  // CUD in a string without space
+  protected $disableLog = "";
+
+  public function disableLogAction() {
+    return explode($this->disableLog, '');
+  }
 
   public static function bootLogModel()
   {
     static::creating(function ($model) {
-      if (!in_array('C', config('model-logger.ignores')) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
+      $disableLog = $model->disableLogAction();
+      if (!in_array('C', config('model-logger.ignores')) && !in_array('C', $disableLog) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
         $key = $model->getKeyName();
         ModelLogger::create([
           "date" => now(),
@@ -23,7 +30,8 @@ trait LogModel
     });
 
     static::updated(function ($model) {
-      if (!in_array('U', config('model-logger.ignores')) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
+      $disableLog = $model->disableLogAction();
+      if (!in_array('U', config('model-logger.ignores')) && !in_array('U', $disableLog) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
         $oldValues = [];
         foreach ($model->getChanges() as $key => $value) {
           $oldValues[$key] = $model->getRawOriginal($key);
@@ -42,7 +50,8 @@ trait LogModel
     });
 
     static::deleting(function ($model) {
-      if (!in_array('D', config('model-logger.ignores')) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
+      $disableLog = $model->disableLogAction();
+      if (!in_array('D', config('model-logger.ignores')) && !in_array('D', $disableLog) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
         $key = $model->getKeyName();
         ModelLogger::create([
           "date" => now(),
