@@ -8,7 +8,7 @@ trait LogModel
   protected $disableLog = "";
 
   public function disableLogAction() {
-    return explode($this->disableLog, '');
+    return str_split($this->disableLog);
   }
 
   public static function bootLogModel()
