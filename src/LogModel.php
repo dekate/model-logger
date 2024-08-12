@@ -13,7 +13,7 @@ trait LogModel
 
   public static function bootLogModel()
   {
-    static::creating(function ($model) {
+    static::created(function ($model) {
       $disableLog = $model->disableLogAction();
       if (!in_array('C', config('model-logger.ignores')) && !in_array('C', $disableLog) && get_class($model) !== 'Dekate\\ModelLogger\\ModelLogger') {
         $key = $model->getKeyName();
